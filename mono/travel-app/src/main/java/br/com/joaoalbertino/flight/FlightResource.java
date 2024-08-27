@@ -4,6 +4,7 @@ package br.com.joaoalbertino.flight;
 
 import java.util.List;
 
+import br.com.joaoalbertino.hotel.Hotel;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -27,6 +28,13 @@ public class FlightResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Flight findById(@QueryParam("id") Long id){
         return Flight.findById(id);
+    }
+
+    @Path("findByIdTravelOrderId")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Flight findByTravelOrderId(@QueryParam("id") Long travelOrderId){
+        return Flight.findByTravelOrderId(travelOrderId);
     }
 
     @Transactional
