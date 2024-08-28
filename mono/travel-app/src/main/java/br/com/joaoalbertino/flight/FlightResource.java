@@ -34,7 +34,7 @@ public class FlightResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Flight findByTravelOrderId(@QueryParam("id") Long travelOrderId){
-        return Flight.findByTravelOrderId(travelOrderId);
+        return  Flight.findByTravelOrderId(travelOrderId);
     }
 
     @Transactional

@@ -4,6 +4,7 @@ package br.com.joaoalbertino.order;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import br.com.joaoalbertino.flight.Flight;
@@ -20,6 +21,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 
+import javax.swing.text.html.Option;
+
 
 @Path("travelOrder")
 public class TravelOrderResource {
@@ -34,7 +37,7 @@ public class TravelOrderResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<TravelOrderDTO> orders(){
         return TravelOrder.<TravelOrder>listAll().stream().map(order -> {
-                return TravelOrderDTO.of(order , flightResource.findByTravelOrderId(order.id) , hotelResource.findByTravelOrderId(order.id));
+                return TravelOrderDTO.of(order , Optional.of(flightResource.findByTravelOrderId(order.id)).orElse(new Flight()) , Optional.of(hotelResource.findByTravelOrderId(order.id)).orElse(new Hotel()));
         }
         ).collect(Collectors.toList());
     }
